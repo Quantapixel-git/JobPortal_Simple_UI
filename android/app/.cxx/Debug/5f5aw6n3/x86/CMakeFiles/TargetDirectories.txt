@@ -1,0 +1,2 @@
+D:/Quanta/Quanta_Projects/Job_Simple/job/android/app/.cxx/Debug/5f5aw6n3/x86/CMakeFiles/edit_cache.dir
+D:/Quanta/Quanta_Projects/Job_Simple/job/android/app/.cxx/Debug/5f5aw6n3/x86/CMakeFiles/rebuild_cache.dir

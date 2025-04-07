@@ -1,6 +1,13 @@
 import 'package:get/get.dart';
-import 'package:job/pages/admin_dashboard.dart';
-import 'package:job/pages/admin_login.dart';
+import 'package:job/pages/admin/admin_category.dart';
+import 'package:job/pages/admin/admin_crousel.dart';
+import 'package:job/pages/admin/admin_cv.dart';
+import 'package:job/pages/admin/admin_dashboard.dart';
+import 'package:job/pages/admin/admin_district.dart';
+import 'package:job/pages/admin/admin_jobs.dart';
+import 'package:job/pages/admin/admin_login.dart';
+import 'package:job/pages/admin/admin_state.dart';
+import 'package:job/pages/mainbottomnav.dart';
 import 'package:job/pages/district_page.dart';
 import 'package:job/pages/home_page.dart';
 import 'package:job/pages/job_categories.dart';
@@ -17,17 +24,17 @@ final List<GetPage> allPages = [
   ),
   GetPage(
     name: '/home',
-    page: () => HomePage(),
+    page: () => MainNavigation(),
     transition: Transition.leftToRight,
   ),
   GetPage(
-    name: '/district',
+    name: '/districts',
     page: () => Districts(),
     transition: Transition.rightToLeft,
   ),
   GetPage(
     name: '/jobcategories',
-    page: () => JobCategories(),
+    page: () => CategoryPage(),
     transition: Transition.rightToLeft,
   ),
   GetPage(
@@ -48,11 +55,41 @@ final List<GetPage> allPages = [
   GetPage(
     name: '/admindashboard',
     page: () => AdminDashboard(),
-    transition: Transition.upToDown,
+    // transition: Transition.upToDown,
+  ),
+  GetPage(
+    name: '/adminstate',
+    page: () => AdminStates(),
+    // transition: Transition.upToDown,
+  ),
+  GetPage(
+    name: '/admindistrict',
+    page: () => AdminDistricts(),
+    // transition: Transition.upToDown,
+  ),
+  GetPage(
+    name: '/admincategory',
+    page: () => AdminCategories(),
+    // transition: Transition.upToDown,
+  ),
+  GetPage(
+    name: '/adminjobs',
+    page: () => AdminJobs(),
+    // transition: Transition.upToDown,
+  ),
+  GetPage(
+    name: '/adminuserprofile',
+    page: () => AdminResumes(),
+    // transition: Transition.upToDown,
+  ),
+  GetPage(
+    name: '/admincarousel',
+    page: () => AdminCarousel(),
+    // transition: Transition.upToDown,
   ),
   GetPage(
     name: '/cv',
     page: () => Cv(),
-    transition: Transition.downToUp,
+    transition: Transition.rightToLeft,
   ),
 ];

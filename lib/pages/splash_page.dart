@@ -12,7 +12,7 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(seconds: 3), () {
+    Future.delayed(const Duration(seconds: 5), () {
       Get.offAllNamed('/home');
     });
   }
@@ -20,14 +20,18 @@ class _SplashPageState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.yellow,
       body: Center(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset('assets/images/logo.png', height: 100),
-            const SizedBox(height: 20),
-            const CircularProgressIndicator(color: Colors.red),
+            Padding(
+              padding: const EdgeInsets.only(left: 18.0),
+              child: Image.asset('assets/images/splash.jpeg', height: 250),
+            ),
+            // const SizedBox(height: 10),
+            const CircularProgressIndicator(color: Colors.black),
           ],
         ),
       ),

@@ -14,38 +14,38 @@ class ThemeService extends GetxController {
 
 class AppThemes {
   static final lightTheme = ThemeData(
-    primarySwatch: Colors.red,
+    primarySwatch: Colors.yellow,
     brightness: Brightness.light,
     scaffoldBackgroundColor: Colors.white,
     appBarTheme: const AppBarTheme(
-      backgroundColor: Colors.red,
-      titleTextStyle: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
-      iconTheme: IconThemeData(color: Colors.white),
+      backgroundColor: Colors.yellow,
+      titleTextStyle: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),
+      iconTheme: IconThemeData(color: Colors.black),
     ),
     textTheme: const TextTheme(
       bodyLarge: TextStyle(fontSize: 16, color: Colors.black),
       bodyMedium: TextStyle(fontSize: 14, color: Colors.black54),
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
-      style: ElevatedButton.styleFrom(backgroundColor: Colors.red, foregroundColor: Colors.white),
+      style: ElevatedButton.styleFrom(backgroundColor: Colors.yellow, foregroundColor: Colors.black),
     ),
   );
 
   static final darkTheme = ThemeData(
-    primarySwatch: Colors.grey,
+    primarySwatch: Colors.yellow,
     brightness: Brightness.dark,
     scaffoldBackgroundColor: Colors.black,
     appBarTheme: const AppBarTheme(
       backgroundColor: Colors.black,
-      titleTextStyle: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
-      iconTheme: IconThemeData(color: Colors.white),
+      titleTextStyle: TextStyle(color: Colors.yellow, fontSize: 20, fontWeight: FontWeight.bold),
+      iconTheme: IconThemeData(color: Colors.yellow),
     ),
     textTheme: const TextTheme(
-      bodyLarge: TextStyle(fontSize: 16, color: Colors.white),
-      bodyMedium: TextStyle(fontSize: 14, color: Colors.white70),
+      bodyLarge: TextStyle(fontSize: 16, color: Colors.yellow),
+      bodyMedium: TextStyle(fontSize: 14, color: Colors.yellowAccent),
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
-      style: ElevatedButton.styleFrom(backgroundColor: Colors.white, foregroundColor: Colors.black),
+      style: ElevatedButton.styleFrom(backgroundColor: Colors.yellow, foregroundColor: Colors.black),
     ),
   );
 }
