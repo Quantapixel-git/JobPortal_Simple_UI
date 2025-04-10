@@ -7,6 +7,7 @@ import 'package:job/pages/admin/admin_district.dart';
 import 'package:job/pages/admin/admin_jobs.dart';
 import 'package:job/pages/admin/admin_login.dart';
 import 'package:job/pages/admin/admin_state.dart';
+import 'package:job/pages/admin/adminchangepassword.dart';
 import 'package:job/pages/mainbottomnav.dart';
 import 'package:job/pages/district_page.dart';
 import 'package:job/pages/home_page.dart';
@@ -85,6 +86,11 @@ final List<GetPage> allPages = [
   GetPage(
     name: '/admincarousel',
     page: () => AdminCarousel(),
+    // transition: Transition.upToDown,
+  ),
+    GetPage(
+    name: '/adminchangepassword',
+    page: () => ChangePasswordPage(),
     // transition: Transition.upToDown,
   ),
   GetPage(

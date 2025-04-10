@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
-
+import 'package:url_launcher/url_launcher.dart';
 import '../models/job_model.dart'; // Import your JobModel
 import 'package:share_plus/share_plus.dart';
 
@@ -25,6 +25,22 @@ class _JobDetailState extends State<JobDetail> {
   void initState() {
     super.initState();
     _fetchJobDetails();
+  }
+
+  void _makePhoneCall(String phoneNumber) async {
+    final Uri launchUri = Uri(
+      scheme: 'tel',
+      path: phoneNumber,
+    );
+    await launchUrl(launchUri);
+  }
+
+  void _sendEmail(String email) async {
+    final Uri launchUri = Uri(
+      scheme: 'mailto',
+      path: email,
+    );
+    await launchUrl(launchUri);
   }
 
   Future<void> _fetchJobDetails() async {
@@ -197,7 +213,9 @@ ${job?.jobDescription}
                       Text(
                         "🔹 Job Title: ${job!.jobTitle}",
                         style: const TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.w600),
+                            fontSize: 18,
+                            color: Colors.black,
+                            fontWeight: FontWeight.w600),
                       ),
                       const SizedBox(height: 10),
 
@@ -205,7 +223,9 @@ ${job?.jobDescription}
                       const Text(
                         "📌 Job Requirements:",
                         style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.w600),
+                            fontSize: 18,
+                            color: Colors.black,
+                            fontWeight: FontWeight.w600),
                       ),
                       const SizedBox(height: 5),
                       Text(
@@ -223,35 +243,24 @@ ${job?.jobDescription}
                       const Text(
                         "📍 Address:",
                         style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.w600),
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.black),
                       ),
                       const SizedBox(height: 5),
                       Text(
                         job!.jobLocations,
                         style: const TextStyle(fontSize: 16),
                       ),
-                      const SizedBox(height: 20),
 
-                      // Contact Information
-                      const Text(
-                        "📞 Contact Details:",
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.w600),
-                      ),
-                      const SizedBox(height: 5),
-                      Text(
-                        "☎ Phone: ${job!.contactNumber}\n"
-                        "📧 Email: ${job!.email}\n"
-                        "📍 Location: ${job!.companyLocation}",
-                        style: const TextStyle(fontSize: 16),
-                      ),
                       const SizedBox(height: 20),
-
                       // Job Description
                       const Text(
                         "📄 About Job:",
                         style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.w600),
+                            fontSize: 18,
+                            color: Colors.black,
+                            fontWeight: FontWeight.w600),
                       ),
                       const SizedBox(height: 5),
                       Text(
@@ -262,6 +271,36 @@ ${job?.jobDescription}
                       ),
 
                       const SizedBox(height: 20),
+
+                      // Contact Information
+                      const Text(
+                        "📞 Contact Details:",
+                        style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.black,
+                            fontWeight: FontWeight.w600),
+                      ),
+                      const SizedBox(height: 5),
+                      Text(
+                        "☎ Phone: ${job!.contactNumber}\n"
+                        "📧 Email: ${job!.email}\n"
+                        "📍 Location: ${job!.companyLocation}",
+                        style: const TextStyle(fontSize: 16),
+                      ),
+                      const SizedBox(height: 20),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          ElevatedButton(
+                            onPressed: () => _makePhoneCall(job!.contactNumber),
+                            child: const Text("Call Now"),
+                          ),
+                          ElevatedButton(
+                            onPressed: () => _sendEmail(job!.email),
+                            child: const Text("Send Email"),
+                          ),
+                        ],
+                      ),
                     ],
                   ),
                 )

@@ -98,7 +98,7 @@ class AdminJobs extends StatelessWidget {
                 ),
                 PopupMenuItem<String>(
                   value: 'featured',
-                  child: Text("All Featured Jobs"),
+                  child: Text("Featured Jobs (Not Expired)"),
                 ),
               ];
             },

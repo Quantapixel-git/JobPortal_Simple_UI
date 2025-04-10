@@ -85,6 +85,75 @@ class _EditJobState extends State<EditJob> {
           padding: const EdgeInsets.all(10.0),
           child: Column(
             children: [
+              // Dropdown for states
+              Obx(() {
+                return Container(
+                  width: double.infinity,
+                  child: DropdownButton<int>(
+                    isExpanded: true,
+                    value: jobController.selectedStateId.value,
+                    onChanged: (int? newValue) {
+                      if (newValue != null) {
+                        jobController.selectedStateId.value = newValue;
+                      }
+                    },
+                    items: jobController.states
+                        .map<DropdownMenuItem<int>>((state) {
+                      return DropdownMenuItem<int>(
+                        value: state.id,
+                        child: Text(state.state),
+                      );
+                    }).toList(),
+                  ),
+                );
+              }),
+
+              // Dropdown for districts
+              Obx(() {
+                return Container(
+                  width: double.infinity,
+                  child: DropdownButton<int>(
+                    isExpanded: true,
+                    value: jobController.selectedDistrictId.value,
+                    onChanged: (int? newValue) {
+                      if (newValue != null) {
+                        jobController.selectedDistrictId.value = newValue;
+                      }
+                    },
+                    items: jobController.districts
+                        .map<DropdownMenuItem<int>>((district) {
+                      return DropdownMenuItem<int>(
+                        value: district.id,
+                        child: Text(district.district),
+                      );
+                    }).toList(),
+                  ),
+                );
+              }),
+
+              // Dropdown for categories
+              Obx(() {
+                return Container(
+                  width: double.infinity,
+                  child: DropdownButton<int>(
+                    isExpanded: true,
+                    value: jobController.selectedCategoryId.value,
+                    onChanged: (int? newValue) {
+                      if (newValue != null) {
+                        jobController.selectedCategoryId.value = newValue;
+                      }
+                    },
+                    items: jobController.categories
+                        .map<DropdownMenuItem<int>>((category) {
+                      return DropdownMenuItem<int>(
+                        value: category.id,
+                        child: Text(category.category),
+                      );
+                    }).toList(),
+                  ),
+                );
+              }),
+
               // Job Title
               TextField(
                 controller: jobTitleController,
@@ -287,63 +356,6 @@ class _EditJobState extends State<EditJob> {
                           ),
               ),
               Text("Additional Image 2"),
-
-              // Dropdown for states
-              Obx(() {
-                return DropdownButton<int>(
-                  value: jobController.selectedStateId.value,
-                  onChanged: (int? newValue) {
-                    if (newValue != null) {
-                      jobController.selectedStateId.value = newValue;
-                    }
-                  },
-                  items:
-                      jobController.states.map<DropdownMenuItem<int>>((state) {
-                    return DropdownMenuItem<int>(
-                      value: state.id,
-                      child: Text(state.state),
-                    );
-                  }).toList(),
-                );
-              }),
-
-              // Dropdown for districts
-              Obx(() {
-                return DropdownButton<int>(
-                  value: jobController.selectedDistrictId.value,
-                  onChanged: (int? newValue) {
-                    if (newValue != null) {
-                      jobController.selectedDistrictId.value = newValue;
-                    }
-                  },
-                  items: jobController.districts
-                      .map<DropdownMenuItem<int>>((district) {
-                    return DropdownMenuItem<int>(
-                      value: district.id,
-                      child: Text(district.district),
-                    );
-                  }).toList(),
-                );
-              }),
-
-              // Dropdown for categories
-              Obx(() {
-                return DropdownButton<int>(
-                  value: jobController.selectedCategoryId.value,
-                  onChanged: (int? newValue) {
-                    if (newValue != null) {
-                      jobController.selectedCategoryId.value = newValue;
-                    }
-                  },
-                  items: jobController.categories
-                      .map<DropdownMenuItem<int>>((category) {
-                    return DropdownMenuItem<int>(
-                      value: category.id,
-                      child: Text(category.category),
-                    );
-                  }).toList(),
-                );
-              }),
 
               ElevatedButton(
                 onPressed: () async {

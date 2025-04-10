@@ -16,6 +16,9 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
+JobModel? randomFeaturedJob;
+bool isRandomJobLoading = true;
+
 class _HomePageState extends State<HomePage> {
   bool _showAdminLogin = false;
   final StateController stateController = Get.put(StateController());
@@ -28,12 +31,33 @@ class _HomePageState extends State<HomePage> {
     'assets/images/listinglogo.jpeg',
   ];
 
+  Future<void> fetchRandomFeaturedJob() async {
+    final response = await http.get(Uri.parse(
+        'https://quantapixel.in/jobportal_simple/api/getRandomFeaturedJobs'));
+
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
+      if (data['status'] == 1 && data['data'] != null) {
+        setState(() {
+          randomFeaturedJob = JobModel.fromJson(data['data']);
+          isRandomJobLoading = false;
+        });
+      } else {
+        setState(() => isRandomJobLoading = false);
+      }
+    } else {
+      setState(() => isRandomJobLoading = false);
+      throw Exception('Failed to load random featured job');
+    }
+  }
+
   @override
   void initState() {
     super.initState();
     stateController.fetchStates();
     districtController.fetchFeaturedJobs();
     fetchCarouselImages();
+    fetchRandomFeaturedJob(); // Add this line
   }
 
   Future<void> fetchCarouselImages() async {
@@ -234,101 +258,92 @@ class _HomePageState extends State<HomePage> {
                         color: Colors.black),
                   ),
                   const SizedBox(height: 10),
-                  Obx(() {
-                    if (districtController.recommendedJobs.isEmpty) {
-                      return const Center(
-                          child: Text('No recommended jobs available'));
-                    }
-                    return ListView.builder(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: districtController.recommendedJobs.length,
-                      itemBuilder: (context, index) {
-                        JobModel job =
-                            districtController.recommendedJobs[index];
-                        return GestureDetector(
-                          onTap: () {
-                            Get.toNamed('/jobdetail', arguments: job.id);
-                          },
-                          child: Card(
-                            margin: const EdgeInsets.symmetric(vertical: 4),
-                            elevation: 2,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
-                              side: job.isFeatured == 1
-                                  ? const BorderSide(
-                                      color: Colors.redAccent, width: 1.5)
-                                  : BorderSide.none,
-                            ),
-                            color: Colors.white,
-                            shadowColor: Colors.grey.withOpacity(0.3),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                children: [
-                                  ClipOval(
-                                    child: Image.network(
-                                      job.companyLogo ?? '',
-                                      width: 50,
-                                      height: 50,
-                                      fit: BoxFit.cover,
-                                    ),
+                  isRandomJobLoading
+                      ? const Center(child: CircularProgressIndicator())
+                      : randomFeaturedJob == null
+                          ? const Center(
+                              child: Text('No recommended job available'))
+                          : GestureDetector(
+                              onTap: () {
+                                Get.toNamed('/jobdetail',
+                                    arguments: randomFeaturedJob!.id);
+                              },
+                              child: Card(
+                                margin: const EdgeInsets.symmetric(
+                                    vertical: 4, horizontal: 12),
+                                elevation: 2,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                                  side: randomFeaturedJob!.isFeatured == 1
+                                      ? const BorderSide(
+                                          color: Colors.redAccent, width: 1.5)
+                                      : BorderSide.none,
+                                ),
+                                color: Colors.white,
+                                shadowColor: Colors.grey.withOpacity(0.3),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Row(
+                                    children: [
+                                      ClipOval(
+                                        child: Image.network(
+                                          randomFeaturedJob!.companyLogo ?? '',
+                                          width: 50,
+                                          height: 50,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                      const SizedBox(width: 10),
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              randomFeaturedJob!.jobTitle,
+                                              style: const TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            Text(
+                                              randomFeaturedJob!.companyName,
+                                              style: const TextStyle(
+                                                fontSize: 14,
+                                                color: Colors.grey,
+                                              ),
+                                            ),
+                                            Text(
+                                              'Location: ${randomFeaturedJob!.companyLocation}',
+                                              style: const TextStyle(
+                                                fontSize: 12,
+                                                color: Colors.black54,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Column(
+                                          children: [
+                                            const Text('Salary:'),
+                                            Text(
+                                              '${randomFeaturedJob!.salary}',
+                                              style: TextStyle(
+                                                color: Colors.red.shade800,
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                  const SizedBox(width: 10),
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          job.jobTitle,
-                                          style: const TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                        Text(
-                                          job.companyName,
-                                          style: const TextStyle(
-                                            fontSize: 14,
-                                            color: Colors.grey,
-                                          ),
-                                        ),
-                                        Text(
-                                          'Location: ${job.companyLocation}',
-                                          style: const TextStyle(
-                                            fontSize: 12,
-                                            color: Colors.black54,
-                                          ),
-                                        ),
-                                        const SizedBox(height: 4),
-                                      ],
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Column(
-                                      children: [
-                                        Text('Salary: '),
-                                        Text(
-                                          '${job.salary}',
-                                          style: TextStyle(
-                                            color: Colors.red.shade800,
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
+                                ),
                               ),
-                            ),
-                          ),
-                        );
-                      },
-                    );
-                  }),
+                            )
                 ],
               ),
             ),

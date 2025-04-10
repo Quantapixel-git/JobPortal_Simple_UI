@@ -48,7 +48,7 @@ class _CategoryPageState extends State<CategoryPage> {
           print("Error fetching categories: ${data['message']}");
         }
       } else {
-        Get.snackbar("Error", "Failed to fetch categories: ${response.statusCode}");
+        // Get.snackbar("Error", "Failed to fetch categories: ${response.statusCode}");
         print("Error status code: ${response.statusCode}");
       }
     } catch (e) {

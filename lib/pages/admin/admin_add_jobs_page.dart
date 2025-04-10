@@ -180,7 +180,7 @@ class _AddJobState extends State<AddJob> {
               // Experience
               TextField(
                 controller: experienceController,
-                keyboardType: TextInputType.number,
+                // keyboardType: TextInputType.number,
                 decoration: InputDecoration(labelText: "Experience"),
               ),
               // Gender
@@ -196,7 +196,7 @@ class _AddJobState extends State<AddJob> {
               // Contact Number
               TextField(
                 controller: contactNumberController,
-                keyboardType: TextInputType.phone, // Numeric keyboard
+                keyboardType: TextInputType.phone, 
                 decoration: InputDecoration(labelText: "Contact Number"),
               ),
               // Email
