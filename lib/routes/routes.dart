@@ -10,7 +10,7 @@ import 'package:job/pages/admin/admin_state.dart';
 import 'package:job/pages/admin/adminchangepassword.dart';
 import 'package:job/pages/mainbottomnav.dart';
 import 'package:job/pages/district_page.dart';
-import 'package:job/pages/home_page.dart';
+// import 'package:job/pages/home_page.dart';
 import 'package:job/pages/job_categories.dart';
 import 'package:job/pages/job_detail.dart';
 import 'package:job/pages/job_list.dart';

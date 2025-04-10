@@ -23,9 +23,10 @@ class _SplashPageState extends State<SplashPage> {
     bool isAdminLoggedIn = prefs.getBool('isAdminLoggedIn') ?? false;
 
     if (isAdminLoggedIn) {
-      Get.offAllNamed('/admindashboard');
+      Get.toNamed(
+          '/admindashboard'); // Use Get.toNamed instead of Get.offAllNamed
     } else {
-      Get.offAllNamed('/home');
+      Get.toNamed('/home'); // Use Get.toNamed instead of Get.offAllNamed
     }
   }
 

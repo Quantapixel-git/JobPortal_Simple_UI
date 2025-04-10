@@ -92,6 +92,7 @@ class _CvState extends State<Cv> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         // centerTitle: true,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
